@@ -2,6 +2,7 @@ import numpy as np
 import SimpleITK as sitk
 
 
+
 def load_image(img_path, is_label_img):
     """
     LOAD_IMAGE:
@@ -99,7 +100,7 @@ def register_images(img, label_img, atlas_img):
     registered_img = sitk.Resample(img, referenceImage=atlas_img, transform=transform, 
                                    interpolator=sitk.sitkLinear, defaultPixelValue=0.0, 
                                    outputPixelType=img.GetPixelIDValue())
-    
+
     # todo: apply the obtained transform to register the label image (label_img) to the atlas image (atlas_img), too
     # be careful with the interpolator type for label images!
     # hint: 'Resample' (with interpolator=sitkNearestNeighbor, defaultPixelValue=0.0,
