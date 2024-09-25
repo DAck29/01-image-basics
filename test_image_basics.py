@@ -98,13 +98,12 @@ def test_to_sitk_image():
     )
     assert to_sitk_ok
 
-"""
+
 def test_register():
     """
-"""
     TEST_REGISTER tests if the register_images function is implemented correctly.
     """
-"""
+
     img_ = ib.load_image("./data/T1native.nii.gz", False)
     atlas_img_ = ib.load_image("./data/mni_icbm152_t1_tal_nlin_sym_09a_mask.nii.gz", False)
     label_img_ = ib.load_image("./data/labels_native.nii.gz", True)
@@ -131,7 +130,7 @@ def test_register():
     else:
         register_ok = False
     assert register_ok
-"""
+
 
 def test_preprocess_rescale_numpy():
     """
