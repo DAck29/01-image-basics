@@ -2,7 +2,6 @@ import numpy as np
 import SimpleITK as sitk
 
 
-
 def load_image(img_path, is_label_img):
     """
     LOAD_IMAGE:
@@ -19,7 +18,7 @@ def load_image(img_path, is_label_img):
         pixel_type = sitk.sitkFloat32  # for intensity images
 
     img = sitk.ReadImage(img_path, outputPixelType=pixel_type)
-    
+
     return img
 
 
@@ -76,7 +75,7 @@ def preprocess_rescale_sitk(img, new_min_val, new_max_val):
     #rescaled_img = None  # todo: modify here
 
     rescaled_img = sitk.RescaleIntensity(img, new_min_val, new_max_val)
-    
+
     return rescaled_img
 
 
@@ -97,19 +96,20 @@ def register_images(img, label_img, atlas_img):
     # hint: 'Resample' (with referenceImage=atlas_img, transform=transform, interpolator=sitkLinear,
     # defaultPixelValue=0.0, outputPixelType=img.GetPixelIDValue())
     #registered_img = None  # todo: modify here
-    registered_img = sitk.Resample(img, referenceImage=atlas_img, transform=transform, 
-                                   interpolator=sitk.sitkLinear, defaultPixelValue=0.0, 
-                                   outputPixelType=img.GetPixelIDValue())
+
+    registered_img = sitk.Resample(image1=img, referenceImage=atlas_img, transform=transform, interpolator=sitk.sitkLinear, defaultPixelValue=0.0, outputPixelType=img.GetPixelIDValue())   # todo: modify here
 
     # todo: apply the obtained transform to register the label image (label_img) to the atlas image (atlas_img), too
     # be careful with the interpolator type for label images!
     # hint: 'Resample' (with interpolator=sitkNearestNeighbor, defaultPixelValue=0.0,
     # outputPixelType=label_img.GetPixelIDValue())
     #registered_label = None  # todo: modify here
-    registered_label = sitk.Resample(label_img, referenceImage=atlas_img, transform=transform, 
-                                     interpolator=sitk.sitkNearestNeighbor, defaultPixelValue=0.0, 
+    registered_label = sitk.Resample(label_img, referenceImage=atlas_img, transform=transform,
+                                     interpolator=sitk.sitkNearestNeighbor, defaultPixelValue=0.0,
                                      outputPixelType=label_img.GetPixelIDValue())
-    
+
+    registered_label = sitk.Resample(image1=label_img, referenceImage=atlas_img, transform=transform, interpolator=sitk.sitkNearestNeighbor, defaultPixelValue=0.0, outputPixelType=label_img.GetPixelIDValue())  # todo: modify here
+
     return registered_img, registered_label
 
 
@@ -120,7 +120,8 @@ def extract_feature_median(img):
     """
     #median_img = None  # todo: modify here
 
-    median_img = sitk.Median(img)
+
+    median_img = sitk.Median(img)  # todo: modify here
 
     return median_img
 
